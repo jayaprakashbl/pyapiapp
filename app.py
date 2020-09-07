@@ -16,7 +16,7 @@ conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
                       'Trusted_Connection=no;')
 cursor = conn.cursor()  
 
-@app.route('/dqservices/metadata/v1',methods=['GET'])
+@app.route('/dqservices/metadata/v1/all',methods=['GET'])
 def getallmetadata(): 
  storedProc = "DQS.[DQS].[USP_GetColumnMetadata]"
  cursor.execute(storedProc)
