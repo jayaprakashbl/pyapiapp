@@ -16,7 +16,7 @@ conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
                       'Trusted_Connection=no;')
 cursor = conn.cursor()  
 
-@app.route('/dqservices/metadata/v1/all/',methods=['GET'])
+@app.route('/dqservices/metadata/v1/all/',methods=['GET'], endpoint='getallmetadata')
 def getallmetadata(): 
  storedProc = "DQS.[USP_GetColumnMetadata]"
  cursor.execute(storedProc)
@@ -31,7 +31,7 @@ def getallmetadata():
 
 
 
-@app.route('/dqservices/metadata/v1/<id>',methods=['GET'])
+@app.route('/dqservices/metadata/v1/<id>',methods=['GET'], endpoint='getmetadata')
 def getmetadata(id): 
  storedProc = "DQS.USP_GetColumnMetadataBasedOnRowID "+id
  cursor.execute(storedProc)
@@ -46,7 +46,7 @@ def getmetadata(id):
 
 
 
-@app.route('/dqservices/metadata/v1',methods=['POST'])
+@app.route('/dqservices/metadata/v1',methods=['POST'], endpoint='updatemetadata')
 
 def updatemetadata():
  metadata = request.get_json("force = True")
