@@ -18,13 +18,13 @@ cursor = conn.cursor()
 
 @app.route('/dqservices/metadata/v1/all',methods=['GET'])
 def getallmetadata(): 
- storedProc = "DQS.[DQS].[USP_GetColumnMetadata]"
+ storedProc = "DQS.[USP_GetColumnMetadata]"
  cursor.execute(storedProc)
  recs=cursor.fetchall()
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'SERVERNAME' :row[0], 'SOURCETYPE' :( row[1]), 'DATABASENAME' :( row[2]), 'TABLENAME' :( row[3]), 'COLUMNMETADATAID' :( row[4]), 'SOURCETABLEID' :( row[5]), 'COLUMNNAME' :( row[6]), 'COLUMNORDINALPOSITION' :( row[7]), 'DEFAULTVALUE' :( row[8]), 'ISNULLABLE' :( row[9]), 'DATATYPE' :( row[10]), 'STRINGLENGTH' :( row[11]), 'NUMERICLENGTH' :( row[12]), 'ISPRIMARY' :( row[13]), 'ISALPHANUMERIC' :( row[14]), 'REGEX' :( row[15]), 'ISSENSITIVECOLUMN' :( row[16]), 'ISMANDATORY' :( row[17]), 'IGNOREVALIDATION' :( row[18])})
+        itemsdata.append({'servername' :row[0], 'sourcetype' :( row[1]), 'databasename' :( row[2]), 'tablename' :( row[3]), 'columnmetadataid' :( row[4]), 'sourcetableid' :( row[5]), 'columnname' :( row[6]), 'columnordinalposition' :( row[7]), 'defaultvalue' :( row[8]), 'isnullable' :( row[9]), 'datatype' :( row[10]), 'stringlength' :( row[11]), 'numericlength' :( row[12]), 'isprimary' :( row[13]), 'isalphanumeric' :( row[14]), 'regex' :( row[15]), 'issensitivecolumn' :( row[16]), 'ismandatory' :( row[17]), 'ignorevalidation' :( row[18])})
  itemsobj=({"metadata":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
@@ -40,7 +40,7 @@ def getmetadata(id):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'SERVERNAME' :row[0], 'SOURCETYPE' :( row[1]), 'DATABASENAME' :( row[2]), 'TABLENAME' :( row[3]), 'COLUMNMETADATAID' :( row[4]), 'SOURCETABLEID' :( row[5]), 'COLUMNNAME' :( row[6]), 'COLUMNORDINALPOSITION' :( row[7]), 'DEFAULTVALUE' :( row[8]), 'ISNULLABLE' :( row[9]), 'DATATYPE' :( row[10]), 'STRINGLENGTH' :( row[11]), 'NUMERICLENGTH' :( row[12]), 'ISPRIMARY' :( row[13]), 'ISALPHANUMERIC' :( row[14]), 'REGEX' :( row[15]), 'ISSENSITIVECOLUMN' :( row[16]), 'ISMANDATORY' :( row[17]), 'IGNOREVALIDATION' :( row[18])})
+        itemsdata.append({'servername' :row[0], 'sourcetype' :( row[1]), 'databasename' :( row[2]), 'tablename' :( row[3]), 'columnmetadataid' :( row[4]), 'sourcetableid' :( row[5]), 'columnname' :( row[6]), 'columnordinalposition' :( row[7]), 'defaultvalue' :( row[8]), 'isnullable' :( row[9]), 'datatype' :( row[10]), 'stringlength' :( row[11]), 'numericlength' :( row[12]), 'isprimary' :( row[13]), 'isalphanumeric' :( row[14]), 'regex' :( row[15]), 'issensitivecolumn' :( row[16]), 'ismandatory' :( row[17]), 'ignorevalidation' :( row[18])})
  itemsobj=({"metadata":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
