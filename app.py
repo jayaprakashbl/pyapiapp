@@ -31,7 +31,6 @@ def getallmetadata():
 
 
 
-
 @app.route('/dqservices/metadata/v1/<id>',methods=['GET'])
 def getmetadata(id): 
  storedProc = "DQS.USP_GetColumnMetadataBasedOnRowID "+id
