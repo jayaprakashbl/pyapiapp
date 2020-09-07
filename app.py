@@ -8,7 +8,7 @@ from flask import request
 app = Flask(__name__)
 
     
-conn = pyodbc.connect('Driver={/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.0.so.1.1};'
+conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
                       'Server=dqassqlserver.database.windows.net;'
                       'Database=dqassqldb;'
 					  'UID=uilogin;'
