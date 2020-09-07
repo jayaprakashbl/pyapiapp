@@ -8,7 +8,7 @@ from flask import request
 app = Flask(__name__)
 
     
-conn = pyodbc.connect('Driver={SQL Server};'
+conn = pyodbc.connect('Driver={/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.0.so.1.1};'
                       'Server=dqassqlserver.database.windows.net;'
                       'Database=dqassqldb;'
 					  'UID=uilogin;'
@@ -17,14 +17,7 @@ conn = pyodbc.connect('Driver={SQL Server};'
 cursor = conn.cursor()  
 
 @app.route('/dqservices/metadata/v1/<id>',methods=['GET'])
-def getmetadata(id):
- conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=dqassqlserver.database.windows.net;'
-                      'Database=dqassqldb;'
-					  'UID=uilogin;'
-					  'PWD=Genpact@123;'
-                      'Trusted_Connection=no;')
- cursor = conn.cursor()  
+def getmetadata(id): 
  storedProc = "DQS.USP_GetColumnMetadataBasedOnRowID "+id
 
  cursor.execute(storedProc)
