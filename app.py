@@ -26,7 +26,7 @@ def getallmetadata():
  for row in recs:
         row0= (str(row[0]))
         itemsdata.append({'servername' :row[0], 'sourcetype' :( row[1]), 'databasename' :( row[2]), 'tablename' :( row[3]), 'columnmetadataid' :( row[4]), 'sourcetableid' :( row[5]), 'columnname' :( row[6]), 'columnordinalposition' :( row[7]), 'defaultvalue' :( row[8]), 'isnullable' :( row[9]), 'datatype' :( row[10]), 'stringlength' :( row[11]), 'numericlength' :( row[12]), 'isprimary' :( row[13]), 'isalphanumeric' :( row[14]), 'regex' :( row[15]), 'issensitivecolumn' :( row[16]), 'ismandatory' :( row[17]), 'ignorevalidation' :( row[18])})
- itemsobj=({"metadata":itemsdata})
+ itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
 
@@ -41,7 +41,7 @@ def getmetadata(id):
  for row in recs:
         row0= (str(row[0]))
         itemsdata.append({'servername' :row[0], 'sourcetype' :( row[1]), 'databasename' :( row[2]), 'tablename' :( row[3]), 'columnmetadataid' :( row[4]), 'sourcetableid' :( row[5]), 'columnname' :( row[6]), 'columnordinalposition' :( row[7]), 'defaultvalue' :( row[8]), 'isnullable' :( row[9]), 'datatype' :( row[10]), 'stringlength' :( row[11]), 'numericlength' :( row[12]), 'isprimary' :( row[13]), 'isalphanumeric' :( row[14]), 'regex' :( row[15]), 'issensitivecolumn' :( row[16]), 'ismandatory' :( row[17]), 'ignorevalidation' :( row[18])})
- itemsobj=({"metadata":itemsdata})
+ itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
 
