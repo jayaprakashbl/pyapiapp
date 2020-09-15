@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 13 20:04:15 2020
-
-@author: 703239259
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Sep  7 22:53:32 2020
-
-@author: 703239259
-"""
-
 from flask import Flask
 import pyodbc
 import json
@@ -155,7 +141,7 @@ def gettablename(dbname):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'tablename' :row[0]})
+        itemsdata.append({'tableid': row[0], 'tablename' :row[1]})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
