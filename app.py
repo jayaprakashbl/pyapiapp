@@ -156,7 +156,7 @@ def getbusinessobject():
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'businessobjectid' :row[0],'objectname' :( row[1])})
+        itemsdata.append({'businessobjectid' :row[0],'objectname' :( row[1]),'isactive': (row[2])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
