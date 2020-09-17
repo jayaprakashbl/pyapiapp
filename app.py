@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import pyodbc
 import json
 
@@ -67,7 +67,8 @@ def updatemetadata():
  params = (columnmetadataid,isprimary, isalphanumeric,regex,issensitivecolumn,ismandatory,ignorevalidation)
  cursor.execute(sql, params)
  cursor.commit()
- response = "updated the metadata successfully"
+ 
+ response = jsonify({"message":"updated the metadata successfully"})
 
  return response
 
@@ -197,8 +198,7 @@ def updatebusinessrules():
  params = (businessruleid,businessobjectid,businessrulename,businessrulelogic,businessruledesc,columnname,isactive,sendemail,emailid,actionpoints )
  cursor.execute(sql, params)
  cursor.commit()
- response = "updated the businessrules successfully"
-
+ response = jsonify({"message":"updated the businessrules successfully"})
  return response
 
 
@@ -227,8 +227,7 @@ def updatebusinessrules():
  params = (businessobjectid,dqdimensionid,businessrulename,businessrulelogic,businessruledesc,columnname,isactive,tablejobid1,tablejobid2,tablejobid3,tablejobid4,sendemail,emailid,actionpoints )
  cursor.execute(sql, params)
  cursor.commit()
- response = "inserted the businessrules successfully"
-
+ response = jsonify({"message":"inserted the businessrules successfully"})
  return response
 
 
