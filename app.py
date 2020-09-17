@@ -230,6 +230,34 @@ def updatebusinessrules():
  response = jsonify({"message":"inserted the businessrules successfully"})
  return response
 
+#Get tableobjectid for businessrules
+@app.route('/dqservices/tableobjectid/v1/all',methods=['GET'], endpoint='tableobjectid')
+def gettableobjectid():
+ storedProc = "DQS.[USP_GetTableJobID]"
+ cursor.execute(storedProc)
+ recs=cursor.fetchall()
+ itemsdata = []
+ for row in recs:
+        row0= (str(row[0]))
+        itemsdata.append({'tablejobid' :row[0],'objectName' :( row[1])})
+ itemsobj=({"output":itemsdata})
+ data= json.dumps(itemsobj)
+ return(data)
+
+#Get dqdimensionid for businessrules
+@app.route('/dqservices/dqdimensionid/v1/all',methods=['GET'], endpoint='dqdimensionid')
+def getdqdimensionid():
+ storedProc = "DQS.[USP_GetDimensionID]"
+ cursor.execute(storedProc)
+ recs=cursor.fetchall()
+ itemsdata = []
+ for row in recs:
+        row0= (str(row[0]))
+        itemsdata.append({'dimensionid' :row[0], 'dimensionname' : (row[1])})
+ itemsobj=({"output":itemsdata})
+ data= json.dumps(itemsobj)
+ return(data)
+
 
 if __name__ == '__main__':
     import os
