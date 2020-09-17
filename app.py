@@ -154,6 +154,19 @@ def getobusinessrules(objectid):
  data= json.dumps(itemsobj)
  return(data)
 
+#Get the businessrules based on objectid
+@app.route('/dqservices/obusinessrulesid/v1/<businessruleid>',methods=['GET'], endpoint='getobusinessrulesonruleid')
+def getobusinessrules(businessruleid):
+ storedProc = "DQS.[USP_GetBusinessRulesBasedOnRowID] "+ businessruleid
+ cursor.execute(storedProc)
+ recs=cursor.fetchall()
+ itemsdata = []
+ for row in recs:
+        row0= (str(row[0]))
+        itemsdata.append({'objectName' :row[0],'businessruleid' :( row[1]), 'BusinessObjectID' :( row[2]), 'DQDimensionID' :( row[3]), 'BusinessRuleName' :( row[4]), 'BusinessRuleLogic' :( row[5]), 'BusinessRuleDesc' :( row[6]), 'LogDateTime' :( row[7]), 'ColumnName' :( row[8]), 'IsActive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'SendEmail' :( row[14]), 'EmailId' :( row[15]), 'ActionPoints' :( row[16])})
+ itemsobj=({"output":itemsdata})
+ data= json.dumps(itemsobj)
+ return(data)
 
 #Update the businessrules
 @app.route('/dqservices/ubusinessrules/v1',methods=['POST'], endpoint='updatebusinessrules')
