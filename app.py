@@ -173,15 +173,15 @@ def getobusinessrules(businessruleid):
 def updatebusinessrules():
  businessrules = request.get_json("force = True")
  businessruleid = businessrules['businessruleid']
- businessobjectid = businessrules['businessobjectid']
- businessrulename = businessrules['businessrulename']
- businessrulelogic = businessrules['businessrulelogic']
- businessruledesc = businessrules['businessruledesc']
- columnname = businessrules['columnname']
- isactive = businessrules['isactive']
- sendemail = businessrules['sendemail']
- emailid = businessrules['emailid']
- actionpoints = businessrules['actionpoints']
+ businessobjectid = businessrules['BusinessObjectID']
+ businessrulename = businessrules['BusinessRuleName']
+ businessrulelogic = businessrules['BusinessRuleLogic']
+ businessruledesc = businessrules['BusinessRuleDesc']
+ columnname = businessrules['ColumnName']
+ isactive = businessrules['IsActive']
+ sendemail = businessrules['SendEmail']
+ emailid = businessrules['EmailId']
+ actionpoints = businessrules['ActionPoints']
   
  sql = " EXEC DQS.USP_UpdateBusinessRuleBasedOnRowID @businessruleid=?, @businessobjectid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @columnname=?, @isactive=?, @sendemail=?, @emailid=?, @actionpoints=? "
 
