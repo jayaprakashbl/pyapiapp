@@ -149,12 +149,12 @@ def getobusinessrules(objectid):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'objectName' :row[0],'businessruleid' :( row[1]), 'BusinessObjectID' :( row[2]), 'DQDimensionID' :( row[3]), 'BusinessRuleName' :( row[4]), 'BusinessRuleLogic' :( row[5]), 'BusinessRuleDesc' :( row[6]), 'LogDateTime' :( row[7]), 'ColumnName' :( row[8]), 'IsActive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'SendEmail' :( row[14]), 'EmailId' :( row[15]), 'ActionPoints' :( row[16])})
+        itemsdata.append({'businessruleid' :row[0],'businessobjectid' :( row[1]), 'objectname' :( row[2]), 'dqdimension' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'logdatetime' :( row[6]), 'columnname' :( row[7]), 'isactive' :( row[8]), 'jointable1' :( row[9]), 'jointable2' :( row[10]), 'jointable3' :( row[11]), 'jointable4' :( row[12]), 'sendemail' :( row[13]), 'emailid' :( row[14]), 'actionpoints' :( row[15])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
 
-#Get the businessrules based on objectid
+#Get the businessrules based on business rule id
 @app.route('/dqservices/obusinessrulesid/v1/<businessruleid>',methods=['GET'], endpoint='getobusinessrulesonruleid')
 def getobusinessrules(businessruleid):
  storedProc = "DQS.[USP_GetBusinessRulesBasedOnRowID] "+ businessruleid
