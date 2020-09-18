@@ -178,14 +178,16 @@ def updatebusinessrules():
  businessrulelogic = businessrules['BusinessRuleLogic']
  businessruledesc = businessrules['BusinessRuleDesc']
  columnname = businessrules['ColumnName']
+ tablejobid1 = businessrules['tablejobid1']
+ tablejobid2 = businessrules['tablejobid2']
+ tablejobid3 = businessrules['tablejobid3']
+ tablejobid4 = businessrules['tablejobid1']
  isactive = businessrules['IsActive']
  sendemail = businessrules['SendEmail']
  emailid = businessrules['EmailId']
- actionpoints = businessrules['ActionPoints']
-  
- sql = " EXEC DQS.USP_UpdateBusinessRuleBasedOnRowID @businessruleid=?, @businessobjectid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @columnname=?, @isactive=?, @sendemail=?, @emailid=?, @actionpoints=? "
-
- params = (businessruleid,businessobjectid,businessrulename,businessrulelogic,businessruledesc,columnname,isactive,sendemail,emailid,actionpoints )
+ actionpoints = businessrules['ActionPoints']  
+ sql = " EXEC DQS.USP_UpdateBusinessRuleBasedOnRowID @businessruleid=?, @businessobjectid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @columnname=?, @tablejobid1=?, @tablejobid2=?, @tablejobid3=?, @tablejobid4=?,  @isactive=?, @sendemail=?, @emailid=?, @actionpoints=? "
+ params = (businessruleid,businessobjectid,businessrulename,businessrulelogic,businessruledesc,columnname,tablejobid1,tablejobid2,tablejobid3,tablejobid4,isactive,sendemail,emailid,actionpoints )
  cursor.execute(sql, params)
  cursor.commit()
  response = jsonify({"message":"updated the businessrules successfully"})
