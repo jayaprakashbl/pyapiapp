@@ -163,7 +163,7 @@ def getobusinessrules(businessruleid):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'objectName' :row[0],'businessruleid' :( row[1]), 'BusinessObjectID' :( row[2]), 'DQDimensionID' :( row[3]), 'BusinessRuleName' :( row[4]), 'BusinessRuleLogic' :( row[5]), 'BusinessRuleDesc' :( row[6]), 'LogDateTime' :( row[7]), 'ColumnName' :( row[8]), 'IsActive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'SendEmail' :( row[14]), 'EmailId' :( row[15]), 'ActionPoints' :( row[16])})
+        itemsdata.append({'objectname' :row[0],'businessruleid' :( row[1]), 'businessobjectid' :( row[2]), 'dqdimensionid' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'businessruledesc' :( row[6]), 'logdatetime' :( row[7]), 'columnname' :( row[8]), 'isactive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'sendemail' :( row[14]), 'emailid' :( row[15]), 'actionpoints' :( row[16])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
