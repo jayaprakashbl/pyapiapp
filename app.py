@@ -198,7 +198,6 @@ def updatebusinessrules():
 @app.route('/dqservices/ibusinessrules/v1',methods=['POST'], endpoint='insertbusinessrules')
 def updatebusinessrules():
  businessrules = request.get_json("force = True")
- 
  businessobjectid = businessrules['businessobjectid']
  dqdimensionid = businessrules['dqdimensionid']
  businessrulename = businessrules['businessrulename']
@@ -249,6 +248,65 @@ def getdqdimensionid():
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
+
+#Get the sourcetablemaster
+@app.route('/dqservices/sourcetablemaster/v1/<sourcetableid>',methods=['GET'], endpoint='getsourcetablemaster')
+def getsourcetablemaster(sourcetableid):
+    storedProc = "DQS.[USP_GetSourceTableInfo]" + sourcetableid
+    cursor.execute(storedProc)
+    recs=cursor.fetchall()
+    itemsdata = []
+    for row in recs:
+            row0= (str(row[0]))
+            itemsdata.append({'SourceTableID' :row[0],'SourceType' :( row[1]), 'ServerName' :( row[2]), 'DatabaseName' :( row[3]), 'SchemaName' :( row[4]), 'TableName' :( row[5]), 'SourceCredentails' :( row[6]), 'SourceFilePath' :( row[7]), 'IsActive' :( row[8]), 'FrequencyType' :(row[9]), 'DayOfWeek' :(row[10]), 'Timings' : (row[11])})
+    itemsobj=({"output":itemsdata})
+    data= json.dumps(itemsobj)
+    return(data)
+
+#Insert the sourcetablemaster
+@app.route('/dqservices/isourcetablemaster/v1',methods=['POST'], endpoint='insertsourcetablemaster')
+def insertsourcetablemaster():
+    sourcetablemaster = request.get_json("force = True")
+    sourcetype = sourcetablemaster['sourcetype']
+    servername = sourcetablemaster['servername']
+    databasename = sourcetablemaster['databasename']
+    schemaname = sourcetablemaster['schemaname']
+    tablename = sourcetablemaster['tablename']
+    sourcecredentails = sourcetablemaster['sourcecredentails']
+    sourcefilepath = sourcetablemaster['sourcefilepath']
+    isactive = sourcetablemaster['isactive']
+    frequencytype = sourcetablemaster['frequencytype']
+    dayofweek = sourcetablemaster['dayofweek']
+    timings = sourcetablemaster['timings']
+    sql = " EXEC DQS.[USP_Insertsourcetablemaster]  @sourcetype=?, @servername=?, @databasename=?, @schemaname=?, @tablename=?, @sourcecredentails=?, @sourcefilepath=?, @isactive=?, @frequencytype=?, @dayofweek=?, @timings=? "
+    params = (sourcetype,servername,databasename,schemaname,tablename,sourcecredentails,sourcefilepath,isactive,frequencytype,dayofweek,timings)
+    cursor.execute(sql, params)
+    cursor.commit()
+    response = jsonify({"message":"inserted the sourcetablemaster successfully"})
+    return response
+
+#Update the sourcetablemaster
+@app.route('/dqservices/usourcetablemaster/v1',methods=['POST'], endpoint='updatesourcetablemaster')
+def updatesourcetablemaster():
+    sourcetablemaster = request.get_json("force = True")
+    sourcetableid = sourcetablemaster['sourcetableid']
+    sourcetype = sourcetablemaster['sourcetype']
+    servername = sourcetablemaster['servername']
+    databasename = sourcetablemaster['databasename']
+    schemaname = sourcetablemaster['schemaname']
+    tablename = sourcetablemaster['tablename']
+    sourcecredentails = sourcetablemaster['sourcecredentails']
+    sourcefilepath = sourcetablemaster['sourcefilepath']
+    isactive = sourcetablemaster['isactive']
+    frequencytype = sourcetablemaster['frequencytype']
+    dayofweek = sourcetablemaster['dayofweek']
+    timings = sourcetablemaster['timings']
+    sql = " EXEC DQS.[USP_UpdateSourceTableMaster] @sourcetableid=?, @sourcetype=?, @servername=?, @databasename=?, @schemaname=?, @tablename=?, @sourcecredentails=?, @sourcefilepath=?, @isactive=?, @frequencytype=?, @dayofweek=?, @timings=? "
+    params = (sourcetableid,sourcetype,servername,databasename,schemaname,tablename,sourcecredentails,sourcefilepath,isactive,frequencytype,dayofweek,timings )
+    cursor.execute(sql, params)
+    cursor.commit()
+    response = jsonify({"message":"updated the sourcetablemaster successfully"})
+    return response
 
 
 if __name__ == '__main__':
