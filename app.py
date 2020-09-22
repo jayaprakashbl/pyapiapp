@@ -171,21 +171,21 @@ def getobusinessrules(businessruleid):
 #Update the businessrules
 @app.route('/dqservices/ubusinessrules/v1',methods=['POST'], endpoint='updatebusinessrules')
 def updatebusinessrules():
- businessrules = request.get_json("force = True")
+ businessrules = request.get_json("force = true")
  businessruleid = businessrules['businessruleid']
- businessobjectid = businessrules['BusinessObjectID']
- businessrulename = businessrules['BusinessRuleName']
- businessrulelogic = businessrules['BusinessRuleLogic']
- businessruledesc = businessrules['BusinessRuleDesc']
- columnname = businessrules['ColumnName']
+ businessobjectid = businessrules['businessobjectid']
+ businessrulename = businessrules['businessrulename']
+ businessrulelogic = businessrules['businessrulelogic']
+ businessruledesc = businessrules['businessruledesc']
+ columnname = businessrules['columnname']
  tablejobid1 = businessrules['tablejobid1']
  tablejobid2 = businessrules['tablejobid2']
  tablejobid3 = businessrules['tablejobid3']
  tablejobid4 = businessrules['tablejobid1']
- isactive = businessrules['IsActive']
- sendemail = businessrules['SendEmail']
- emailid = businessrules['EmailId']
- actionpoints = businessrules['ActionPoints']  
+ isactive = businessrules['isactive']
+ sendemail = businessrules['sendemail']
+ emailid = businessrules['emailid']
+ actionpoints = businessrules['actionpoints']  
  sql = " EXEC DQS.USP_UpdateBusinessRuleBasedOnRowID @businessruleid=?, @businessobjectid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @columnname=?, @tablejobid1=?, @tablejobid2=?, @tablejobid3=?, @tablejobid4=?,  @isactive=?, @sendemail=?, @emailid=?, @actionpoints=? "
  params = (businessruleid,businessobjectid,businessrulename,businessrulelogic,businessruledesc,columnname,tablejobid1,tablejobid2,tablejobid3,tablejobid4,isactive,sendemail,emailid,actionpoints )
  cursor.execute(sql, params)
