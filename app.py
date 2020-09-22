@@ -163,7 +163,7 @@ def getobusinessrules(businessruleid):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'objectName' :row[0],'businessruleid' :( row[1]), 'BusinessObjectID' :( row[2]), 'DQDimensionID' :( row[3]), 'BusinessRuleName' :( row[4]), 'BusinessRuleLogic' :( row[5]), 'BusinessRuleDesc' :( row[6]), 'LogDateTime' :( row[7]), 'ColumnName' :( row[8]), 'IsActive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'SendEmail' :( row[14]), 'EmailId' :( row[15]), 'ActionPoints' :( row[16])})
+        itemsdata.append({'objectname' :row[0],'businessruleid' :( row[1]), 'businessobjectid' :( row[2]), 'dqdimensionid' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'businessruledesc' :( row[6]), 'logdatetime' :( row[7]), 'columnname' :( row[8]), 'isactive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'sendemail' :( row[14]), 'emailid' :( row[15]), 'actionpoints' :( row[16])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
@@ -258,7 +258,7 @@ def getsourcetablemasterbasedonid(sourcetableid):
     itemsdata = []
     for row in recs:
             row0= (str(row[0]))
-            itemsdata.append({'SourceTableID' :row[0],'SourceType' :( row[1]), 'ServerName' :( row[2]), 'DatabaseName' :( row[3]), 'SchemaName' :( row[4]), 'TableName' :( row[5]), 'SourceCredentails' :( row[6]), 'SourceFilePath' :( row[7]), 'IsActive' :( row[8]), 'FrequencyType' :(row[9]), 'DayOfWeek' :(row[10]), 'Timings' : (row[11])})
+            itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]), 'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'sourcecredentails' :( row[6]), 'sourcefilepath' :( row[7]), 'isactive' :( row[8]), 'frequencytype' :(row[9]), 'dayofweek' :(row[10]), 'timings' : (row[11])})
     itemsobj=({"output":itemsdata})
     data= json.dumps(itemsobj)
     return(data)
