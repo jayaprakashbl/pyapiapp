@@ -250,8 +250,8 @@ def getdqdimensionid():
  return(data)
 
 #Get the sourcetablemaster
-@app.route('/dqservices/sourcetablemaster/v1/<sourcetableid>',methods=['GET'], endpoint='getsourcetablemaster')
-def getsourcetablemaster(sourcetableid):
+@app.route('/dqservices/sourcetablemaster/v1/<sourcetableid>',methods=['GET'], endpoint='getsourcetablemasterbasedonid')
+def getsourcetablemasterbasedonid(sourcetableid):
     storedProc = "DQS.[USP_GetSourceTableInfo]" + sourcetableid
     cursor.execute(storedProc)
     recs=cursor.fetchall()
@@ -259,6 +259,20 @@ def getsourcetablemaster(sourcetableid):
     for row in recs:
             row0= (str(row[0]))
             itemsdata.append({'SourceTableID' :row[0],'SourceType' :( row[1]), 'ServerName' :( row[2]), 'DatabaseName' :( row[3]), 'SchemaName' :( row[4]), 'TableName' :( row[5]), 'SourceCredentails' :( row[6]), 'SourceFilePath' :( row[7]), 'IsActive' :( row[8]), 'FrequencyType' :(row[9]), 'DayOfWeek' :(row[10]), 'Timings' : (row[11])})
+    itemsobj=({"output":itemsdata})
+    data= json.dumps(itemsobj)
+    return(data)
+    
+#Get all the sourcetablemaster
+@app.route('/dqservices/sourcetablemaster/v1/all',methods=['GET'], endpoint='getsourcetablemaster')
+def getsourcetablemaster():
+    storedProc = "DQS.[USP_GetSourceTableInfo]" 
+    cursor.execute(storedProc)
+    recs=cursor.fetchall()
+    itemsdata = []
+    for row in recs:
+            row0= (str(row[0]))
+            itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]), 'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'sourcecredentails' :( row[6]), 'sourcefilepath' :( row[7]), 'isactive' :( row[8]), 'frequencytype' :(row[9]), 'dayofweek' :(row[10]), 'timings' : (row[11])})
     itemsobj=({"output":itemsdata})
     data= json.dumps(itemsobj)
     return(data)
@@ -307,6 +321,20 @@ def updatesourcetablemaster():
     cursor.commit()
     response = jsonify({"message":"updated the sourcetablemaster successfully"})
     return response
+
+#Get consolidatedrules based on columnname
+@app.route('/dqservices/consolidatedrulesbasedoncolumnname/v1/<sourcetableid>/<columnname>',methods=['GET'], endpoint='getconsolidatedrulesbasedoncolumnname')
+def getconsolidatedrulesbasedoncolumnname(sourcetableid,columnname):
+    storedProc = "DQS.[USP_GetConsolidatedRulesBasedOnColumnName]" + sourcetableid +","+ columnname
+    cursor.execute(storedProc)
+    recs=cursor.fetchall()
+    itemsdata = []
+    for row in recs:
+        row0= (str(row[0]))
+        itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]),'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'frequencytype' :( row[6]), 'dayofweek' :( row[7]), 'timings' :( row[8]), 'isnullable' :( row[9]), 'isprimary' :(row[10]), 'regex' :(row[11]), 'issensitivecolumn' : (row[12]), 'ismandatory' :row[13],'ignorevalidation' :( row[14]), 'domain' :( row[15]), 'businessrulename' :( row[16]), 'businessrulelogic' :( row[17]), 'businessruledesc' :( row[18]), 'columnname' :( row[19]), 'isactive' :( row[20]), 'sendemail' :( row[21]), 'emailid' :(row[22]), 'actionpoints' :(row[23])})
+    itemsobj=({"output":itemsdata})
+    data= json.dumps(itemsobj)
+    return(data)
 
 
 if __name__ == '__main__':
