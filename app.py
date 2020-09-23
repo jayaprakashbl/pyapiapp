@@ -171,7 +171,7 @@ def updatebusinessrules():
  tablejobid1 = businessrules['tablejobid1']
  tablejobid2 = businessrules['tablejobid2']
  tablejobid3 = businessrules['tablejobid3']
- tablejobid4 = businessrules['tablejobid1']
+ tablejobid4 = businessrules['tablejobid4']
  isactive = businessrules['isactive']
  sendemail = businessrules['sendemail']
  emailid = businessrules['emailid']
