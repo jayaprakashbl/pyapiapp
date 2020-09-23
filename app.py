@@ -132,22 +132,7 @@ def gettablename(dbname):
  return(data)
  
 
-#Get the businessobjectname
-@app.route('/dqservices/businessobject/v1/all',methods=['GET'], endpoint='getbusinessobject')
-def getbusinessobject():
- storedProc = "DQS.[USP_GetBusinessObject]"
- cursor.execute(storedProc)
- recs=cursor.fetchall()
- itemsdata = []
- for row in recs:
-        row0= (str(row[0]))
-        itemsdata.append({'businessobjectid' :row[0],'sourcetableid' :( row[1]),'isactive': (row[2])})
- itemsobj=({"output":itemsdata})
- data= json.dumps(itemsobj)
- return(data)
-
-
-#Get the businessrules based on objectid
+#Get the businessrules based on source table id
 @app.route('/dqservices/businessrulesonsourcetableid/v1/<sourcetableid>',methods=['GET'], endpoint='getbusinessrulesonsourcetableid')
 def getobusinessrules(sourcetableid):
  storedProc = "DQS.[USP_GetBusinessRulesBasedOnSourceTableID] "+sourcetableid
@@ -156,7 +141,7 @@ def getobusinessrules(sourcetableid):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'businessruleid' :row[0],'sourcetableid' :( row[1]), 'objectname' :( row[2]), 'dqdimension' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'logdatetime' :( row[6]), 'columnname' :( row[7]), 'isactive' :( row[8]), 'jointable1' :( row[9]), 'jointable2' :( row[10]), 'jointable3' :( row[11]), 'jointable4' :( row[12]), 'sendemail' :( row[13]), 'emailid' :( row[14]), 'actionpoints' :( row[15])})
+        itemsdata.append({'businessruleid' :row[0],'sourcetableid' :( row[1]), 'tablename' :( row[2]), 'dqdimension' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'logdatetime' :( row[6]), 'isactive' :( row[7]), 'jointable1' :( row[8]), 'jointable2' :( row[9]), 'jointable3' :( row[10]), 'jointable4' :( row[11]), 'sendemail' :( row[12]), 'emailid' :( row[13]), 'actionpoints' :( row[14]), 'columnname' :( row[15])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
