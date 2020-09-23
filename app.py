@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep 21 19:19:05 2020
+
+@author: 703239259
+"""
+
 from flask import Flask, jsonify
 import pyodbc
 import json
@@ -134,22 +141,22 @@ def getbusinessobject():
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'businessobjectid' :row[0],'objectname' :( row[1]),'isactive': (row[2])})
+        itemsdata.append({'businessobjectid' :row[0],'sourcetableid' :( row[1]),'isactive': (row[2])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
 
 
 #Get the businessrules based on objectid
-@app.route('/dqservices/obusinessrules/v1/<objectid>',methods=['GET'], endpoint='getobusinessrules')
-def getobusinessrules(objectid):
- storedProc = "DQS.[USP_GetBusinessRulesBasedOnObjectID] "+objectid
+@app.route('/dqservices/businessrulesonsourcetableid/v1/<sourcetableid>',methods=['GET'], endpoint='getbusinessrulesonsourcetableid')
+def getobusinessrules(sourcetableid):
+ storedProc = "DQS.[USP_GetBusinessRulesBasedOnSourceTableID] "+sourcetableid
  cursor.execute(storedProc)
  recs=cursor.fetchall()
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'businessruleid' :row[0],'businessobjectid' :( row[1]), 'objectname' :( row[2]), 'dqdimension' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'logdatetime' :( row[6]), 'columnname' :( row[7]), 'isactive' :( row[8]), 'jointable1' :( row[9]), 'jointable2' :( row[10]), 'jointable3' :( row[11]), 'jointable4' :( row[12]), 'sendemail' :( row[13]), 'emailid' :( row[14]), 'actionpoints' :( row[15])})
+        itemsdata.append({'businessruleid' :row[0],'sourcetableid' :( row[1]), 'objectname' :( row[2]), 'dqdimension' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'logdatetime' :( row[6]), 'columnname' :( row[7]), 'isactive' :( row[8]), 'jointable1' :( row[9]), 'jointable2' :( row[10]), 'jointable3' :( row[11]), 'jointable4' :( row[12]), 'sendemail' :( row[13]), 'emailid' :( row[14]), 'actionpoints' :( row[15])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
@@ -163,7 +170,7 @@ def getobusinessrules(businessruleid):
  itemsdata = []
  for row in recs:
         row0= (str(row[0]))
-        itemsdata.append({'objectname' :row[0],'businessruleid' :( row[1]), 'businessobjectid' :( row[2]), 'dqdimensionid' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'businessruledesc' :( row[6]), 'logdatetime' :( row[7]), 'columnname' :( row[8]), 'isactive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'sendemail' :( row[14]), 'emailid' :( row[15]), 'actionpoints' :( row[16])})
+        itemsdata.append({'tablename' :row[0],'businessruleid' :( row[1]), 'sourcetableid' :( row[2]), 'dqdimensionid' :( row[3]), 'businessrulename' :( row[4]), 'businessrulelogic' :( row[5]), 'businessruledesc' :( row[6]), 'logdatetime' :( row[7]), 'columnname' :( row[8]), 'isactive' :( row[9]), 'tablejobid1' :( row[10]), 'tablejobid2' :( row[11]), 'tablejobid3' :( row[12]), 'tablejobid4' :( row[13]), 'sendemail' :( row[14]), 'emailid' :( row[15]), 'actionpoints' :( row[16])})
  itemsobj=({"output":itemsdata})
  data= json.dumps(itemsobj)
  return(data)
@@ -173,11 +180,9 @@ def getobusinessrules(businessruleid):
 def updatebusinessrules():
  businessrules = request.get_json("force = true")
  businessruleid = businessrules['businessruleid']
- businessobjectid = businessrules['businessobjectid']
  businessrulename = businessrules['businessrulename']
  businessrulelogic = businessrules['businessrulelogic']
  businessruledesc = businessrules['businessruledesc']
- columnname = businessrules['columnname']
  tablejobid1 = businessrules['tablejobid1']
  tablejobid2 = businessrules['tablejobid2']
  tablejobid3 = businessrules['tablejobid3']
@@ -185,9 +190,12 @@ def updatebusinessrules():
  isactive = businessrules['isactive']
  sendemail = businessrules['sendemail']
  emailid = businessrules['emailid']
- actionpoints = businessrules['actionpoints']  
- sql = " EXEC DQS.USP_UpdateBusinessRuleBasedOnRowID @businessruleid=?, @businessobjectid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @columnname=?, @tablejobid1=?, @tablejobid2=?, @tablejobid3=?, @tablejobid4=?,  @isactive=?, @sendemail=?, @emailid=?, @actionpoints=? "
- params = (businessruleid,businessobjectid,businessrulename,businessrulelogic,businessruledesc,columnname,tablejobid1,tablejobid2,tablejobid3,tablejobid4,isactive,sendemail,emailid,actionpoints )
+ actionpoints = businessrules['actionpoints'] 
+ sourcetableid = businessrules['sourcetableid']
+ columnmetadataid = businessrules['columnmetadataid'] 
+
+ sql = " EXEC DQS.USP_UpdateBusinessRuleBasedOnRowID @businessruleid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @tablejobid1=?, @tablejobid2=?, @tablejobid3=?, @tablejobid4=?,  @isactive=?, @sendemail=?, @emailid=?, @actionpoints=?, @sourcetableid=?, @columnmetadataid=? "
+ params = (businessruleid,businessrulename,businessrulelogic,businessruledesc,tablejobid1,tablejobid2,tablejobid3,tablejobid4,isactive,sendemail,emailid,actionpoints,sourcetableid,columnmetadataid )
  cursor.execute(sql, params)
  cursor.commit()
  response = jsonify({"message":"updated the businessrules successfully"})
@@ -198,12 +206,10 @@ def updatebusinessrules():
 @app.route('/dqservices/ibusinessrules/v1',methods=['POST'], endpoint='insertbusinessrules')
 def updatebusinessrules():
  businessrules = request.get_json("force = True")
- businessobjectid = businessrules['businessobjectid']
  dqdimensionid = businessrules['dqdimensionid']
  businessrulename = businessrules['businessrulename']
  businessrulelogic = businessrules['businessrulelogic']
  businessruledesc = businessrules['businessruledesc']
- columnname = businessrules['columnname']
  isactive = businessrules['isactive']
  tablejobid1 = businessrules['tablejobid1']
  tablejobid2 = businessrules['tablejobid2']
@@ -212,10 +218,12 @@ def updatebusinessrules():
  sendemail = businessrules['sendemail']
  emailid = businessrules['emailid']
  actionpoints = businessrules['actionpoints']
+ sourcetableid = businessrules['sourcetableid']
+ columnmetadataid = businessrules['columnmetadataid']
    
- sql = " EXEC DQS.[USP_InsertBusinessRules]  @businessobjectid=?, @dqdimensionid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @columnname=?, @isactive=?, @sendemail=?, @tablejobid1=?, @tablejobid2=?, @tablejobid3=?, @tablejobid4=?, @emailid=?, @actionpoints=? "
+ sql = " EXEC DQS.[USP_InsertBusinessRules]  @dqdimensionid=?, @businessrulename=?, @businessrulelogic=?, @businessruledesc=?, @isactive=?, @sendemail=?, @tablejobid1=?, @tablejobid2=?, @tablejobid3=?, @tablejobid4=?, @emailid=?, @actionpoints=?, @sourcetableid=?, @columnmetadataid=? "
 
- params = (businessobjectid,dqdimensionid,businessrulename,businessrulelogic,businessruledesc,columnname,isactive,tablejobid1,tablejobid2,tablejobid3,tablejobid4,sendemail,emailid,actionpoints )
+ params = (dqdimensionid,businessrulename,businessrulelogic,businessruledesc,isactive,tablejobid1,tablejobid2,tablejobid3,tablejobid4,sendemail,emailid,actionpoints,sourcetableid,columnmetadataid)
  cursor.execute(sql, params)
  cursor.commit()
  response = jsonify({"message":"inserted the businessrules successfully"})
@@ -249,20 +257,6 @@ def getdqdimensionid():
  data= json.dumps(itemsobj)
  return(data)
 
-#Get the sourcetablemaster
-@app.route('/dqservices/sourcetablemaster/v1/<sourcetableid>',methods=['GET'], endpoint='getsourcetablemasterbasedonid')
-def getsourcetablemasterbasedonid(sourcetableid):
-    storedProc = "DQS.[USP_GetSourceTableInfo]" + sourcetableid
-    cursor.execute(storedProc)
-    recs=cursor.fetchall()
-    itemsdata = []
-    for row in recs:
-            row0= (str(row[0]))
-            itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]), 'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'sourcecredentails' :( row[6]), 'sourcefilepath' :( row[7]), 'isactive' :( row[8]), 'frequencytype' :(row[9]), 'dayofweek' :(row[10]), 'timings' : (row[11])})
-    itemsobj=({"output":itemsdata})
-    data= json.dumps(itemsobj)
-    return(data)
-    
 #Get all the sourcetablemaster
 @app.route('/dqservices/sourcetablemaster/v1/all',methods=['GET'], endpoint='getsourcetablemaster')
 def getsourcetablemaster():
@@ -276,6 +270,22 @@ def getsourcetablemaster():
     itemsobj=({"output":itemsdata})
     data= json.dumps(itemsobj)
     return(data)
+
+#Get the sourcetablemaster information based on id
+@app.route('/dqservices/sourcetablemaster/v1/<sourcetableid>',methods=['GET'], endpoint='getsourcetablemasterbasedonid')
+def getsourcetablemasteronid(sourcetableid):
+    storedProc = "DQS.[USP_GetSourceTableInfoBasedOnID]" + sourcetableid
+    cursor.execute(storedProc)
+    recs=cursor.fetchall()
+    itemsdata = []
+    for row in recs:
+        row0= (str(row[0]))
+        itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]), 'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'sourcecredentails' :( row[6]), 'sourcefilepath' :( row[7]), 'isactive' :( row[8]), 'frequencytype' :(row[9]), 'dayofweek' :(row[10]), 'timings' : (row[11])})
+    itemsobj=({"output":itemsdata})
+    data= json.dumps(itemsobj)
+    return(data)
+
+
 
 #Insert the sourcetablemaster
 @app.route('/dqservices/isourcetablemaster/v1',methods=['POST'], endpoint='insertsourcetablemaster')
@@ -323,15 +333,15 @@ def updatesourcetablemaster():
     return response
 
 #Get consolidatedrules based on columnname
-@app.route('/dqservices/consolidatedrulesbasedoncolumnname/v1/<sourcetableid>/<columnname>',methods=['GET'], endpoint='getconsolidatedrulesbasedoncolumnname')
-def getconsolidatedrulesbasedoncolumnname(sourcetableid,columnname):
-    storedProc = "DQS.[USP_GetConsolidatedRulesBasedOnColumnName]" + sourcetableid +","+ columnname
+@app.route('/dqservices/consolidatedrulesbasedoncolumnname/v1/<sourcetableid>/<columnnmetadataid>',methods=['GET'], endpoint='getconsolidatedrulesbasedoncolumnname')
+def getconsolidatedrulesbasedoncolumnname(sourcetableid,columnnmetadataid):
+    storedProc = "DQS.[USP_GetConsolidatedRulesBasedOnColumnName]" + sourcetableid +","+ columnnmetadataid
     cursor.execute(storedProc)
     recs=cursor.fetchall()
     itemsdata = []
     for row in recs:
-        row0= (str(row[0]))
-        itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]),'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'frequencytype' :( row[6]), 'dayofweek' :( row[7]), 'timings' :( row[8]), 'isnullable' :( row[9]), 'isprimary' :(row[10]), 'regex' :(row[11]), 'issensitivecolumn' : (row[12]), 'ismandatory' :row[13],'ignorevalidation' :( row[14]), 'domain' :( row[15]), 'businessrulename' :( row[16]), 'businessrulelogic' :( row[17]), 'businessruledesc' :( row[18]), 'columnname' :( row[19]), 'isactive' :( row[20]), 'sendemail' :( row[21]), 'emailid' :(row[22]), 'actionpoints' :(row[23])})
+            row0= (str(row[0]))
+            itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]),'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'frequencytype' :( row[6]), 'dayofweek' :( row[7]), 'timings' :( row[8]), 'isnullable' :( row[9]), 'isprimary' :(row[10]), 'regex' :(row[11]), 'issensitivecolumn' : (row[12]), 'ismandatory' :row[13],'ignorevalidation' :( row[14]), 'businessrulename' :( row[15]), 'businessrulelogic' :( row[16]), 'businessruledesc' :( row[17]), 'columnmetadataid' :( row[18]), 'isactive' :( row[19]), 'sendemail' :( row[20]), 'emailid' :(row[21]), 'actionpoints' :(row[22])})
     itemsobj=({"output":itemsdata})
     data= json.dumps(itemsobj)
     return(data)
