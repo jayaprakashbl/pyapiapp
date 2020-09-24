@@ -326,7 +326,7 @@ def getconsolidatedrulesbasedonsourcetableid(sourcetableid):
     itemsdata = []
     for row in recs:
             row0= (str(row[0]))
-            itemsdata.append({'sourcetableid' :row[0],'sourcetype' :( row[1]),'servername' :( row[2]), 'databasename' :( row[3]), 'schemaname' :( row[4]), 'tablename' :( row[5]), 'frequencytype' :( row[6]), 'dayofweek' :( row[7]), 'timings' :( row[8]), 'isnullable' :( row[9]), 'isprimary' :(row[10]), 'regex' :(row[11]), 'issensitivecolumn' : (row[12]), 'ismandatory' :row[13],'ignorevalidation' :( row[14]), 'businessrulename' :( row[15]), 'businessrulelogic' :( row[16]), 'businessruledesc' :( row[17]), 'columnmetadataid' :( row[18]), 'isactive' :( row[19]), 'sendemail' :( row[20]), 'emailid' :(row[21]), 'actionpoints' :(row[22])})
+            itemsdata.append({'columnname' :  row[0],'isnullable' :  row[1],'isprimary' :  row[2],'regex' :  row[3],'issensitivecolumn' :  row[4],'ismandatory' :  row[5],'ignorevalidation' :  row[6],'businessrulename' :  row[7],'businessrulelogic' :  row[8],'isactive' :  row[9],'sendemail' :  row[10],'emailid' :  row[11],'actionpoints' :  row[12]})
     itemsobj=({"output":itemsdata})
     data= json.dumps(itemsobj)
     return(data)
