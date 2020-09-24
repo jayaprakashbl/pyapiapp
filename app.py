@@ -318,9 +318,9 @@ def updatesourcetablemaster():
     return response
 
 #Get consolidatedrules based on columnname
-@app.route('/dqservices/consolidatedrulesbasedoncolumnname/v1/<sourcetableid>/<columnnmetadataid>',methods=['GET'], endpoint='getconsolidatedrulesbasedoncolumnname')
-def getconsolidatedrulesbasedoncolumnname(sourcetableid,columnnmetadataid):
-    storedProc = "DQS.[USP_GetConsolidatedRulesBasedOnColumnName]" + sourcetableid +","+ columnnmetadataid
+@app.route('/dqservices/consolidatedrules/v1/<sourcetableid>',methods=['GET'], endpoint='getconsolidatedrulesbasedonsourcetableid')
+def getconsolidatedrulesbasedonsourcetableid(sourcetableid):
+    storedProc = "DQS.[USP_GetConsolidatedRulesBasedOnSourceTable]" + sourcetableid
     cursor.execute(storedProc)
     recs=cursor.fetchall()
     itemsdata = []
